@@ -36,6 +36,9 @@ while 1:
       print("C>", msgClient)
       if msgClient.upper() == "FIN" or msgClient =="":
         break
+      if  msgClient =="what is your ip address ?":
+          msgServeur = getIP()
+          connexion.send(msgServeur.encode("Utf8"))
       msgServeur = input("S> ")
       connexion.send(msgServeur.encode("Utf8"))
       msgClient = connexion.recv(1024).decode("Utf8")

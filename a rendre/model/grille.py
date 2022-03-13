@@ -1,4 +1,5 @@
 from tkinter import *
+import os
 class Grille():
     def __init__(self,id, usage,root,x,y):
         self.id= id
@@ -10,7 +11,7 @@ class Grille():
         self.canvas.place(x=self.x,y=self.y)
         self.grille = [[0 for j in range(10)] for i in range (10)]
         self.rectangles=[]
-        self.canvas.create_image(0, 0, image = PhotoImage(file='fond.gif'))
+        self.canvas.create_image(0, 0, image = PhotoImage(file="model/fond.gif"))
     ## generation de la grille en fond
         for i in range (0,500,50):
     #fenetre.attributes('-transparentcolor', 'white')
@@ -23,7 +24,7 @@ class Grille():
 
             for j in range(0,500,50):
                 self.rectangles.append(self.canvas.create_rectangle(25+i,25+j,75+i,75+j,outline="black"))
-    
+
     def getID(self):
         return self.id
 
@@ -38,6 +39,6 @@ class Grille():
         print("ok")
         print(self.getGrille())
         self.changeColor(i*10+j)
-    
+
     def changeColor(self,n):
         self.canvas.itemconfig(self.rectangles[n], fill='green')

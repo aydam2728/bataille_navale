@@ -1,5 +1,8 @@
+from queue import Empty
 from tkinter import *
 from math import * 
+import PIL.Image
+from PIL import ImageTk,Image
 class Grille():
     def __init__(self,id, usage,root,x,y):
         self.id= id
@@ -11,7 +14,8 @@ class Grille():
         self.canvas.place(x=self.x,y=self.y)
         self.grille = [[0 for j in range(10)] for i in range (10)]
         self.rectangles=[]
-        ##self.canvas.create_image(0, 0, image = PhotoImage(file='fond.gif'))
+        img= ImageTk.PhotoImage(PIL.Image.open("fond.gif"))
+        self.canvas.create_image(0, 0, image = img,anchor=NW)
     ## generation de la grille en fond
         for i in range (0,500,50):
     #fenetre.attributes('-transparentcolor', 'white')
@@ -23,7 +27,7 @@ class Grille():
             self.canvas.create_text(12,i+50,text=a[i // 50])
 
             for j in range(0,500,50):
-                self.rectangles.append(self.canvas.create_rectangle(25+i,25+j,75+i,75+j,outline="black"))
+                self.rectangles.append(self.canvas.create_rectangle(25+i,25+j,75+i,75+j,outline="black",fill="#0066c4"))
     
     def getID(self):
         return self.id
@@ -40,8 +44,11 @@ class Grille():
     def setGrille(self,i,j,x):
         self.grille[i][j]=x
         print("ok")
-        print(self.getGrille())
+        print(self.grille)
         self.changeColor(i*10+j,"green")
+
+    def setGrille2(self,i,j,x):
+        self.grille[i][j]=x
 
     def setCase(self,n,x):
         i= n//10
@@ -51,3 +58,6 @@ class Grille():
 
     def changeColor(self,n,color):
         self.canvas.itemconfig(self.rectangles[n], fill=color)
+
+    def check(self,i,j):
+        if self.grille[i][j] == 0 : return True

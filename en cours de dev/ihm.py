@@ -32,20 +32,8 @@ bat=[]
 def autre(event,n,t):
     abscisse, ordonnée = event.x -25 , event.y-25
     global grilles , list_bateaux_img,img,lastx, bat,lasty , ref_bateau,list_bateaux,list_bateaux_img_link,v
-    if ref_bateau != None and 0<abscisse<500 and 0<ordonnée<500: 
-        for o in range(list_bateaux [ref_bateau].id):
-            try :
-                if (v==False):
-                    if (grilles[n].check(floor(ordonnée/50),floor(abscisse/50)+o) != True):
-                        grilles[n].getCanvas().delete(bat[-1])
-                else:
-                    if (grilles[n].check(floor(ordonnée/50)+o,floor(abscisse/50)) != True ):
-                        grilles[n].getCanvas().delete(bat[-1])
-            except:
-                
-                return None
-            
-        if (abscisse-(abscisse%50) != lastx or ordonnée-(ordonnée%50) != lasty) :
+    if ref_bateau != None and 0<abscisse<500 and 0<ordonnée<500 and isEmpty(abscisse,ordonnée,n) == True :     
+        if (abscisse-(abscisse%50) != lastx or ordonnée-(ordonnée%50) != lasty):
             try :
                 grilles[n].getCanvas().delete(bat[-1])
             except:
@@ -57,12 +45,26 @@ def autre(event,n,t):
             lastx = abscisse-(abscisse%50)
             lasty = ordonnée-(ordonnée%50)
 
+def isEmpty(abscisse,ordonnée,i):
+    global grilles , list_bateaux_img,img,lastx, bat,lasty , ref_bateau,list_bateaux,list_bateaux_img_link,list_bateaux_img_link_v,v
+    for o in range(list_bateaux [ref_bateau].id):
+            try :
+                if (v==False):
+                    if (grilles[i].check(floor(ordonnée/50),floor(abscisse/50)+o) != True):
+                        return False
+                else:
+                    if (grilles[i].check(floor(ordonnée/50)+o,floor(abscisse/50)) != True ):
+                        return False
+            except:
+                return None
+    return True
+
 def app(event,i):
     abscisse, ordonnée = event.x -25 , event.y-25
     #print(abscisse-(abscisse%50),ordonnée-(ordonnée%50))
     global grilles , list_bateaux_img,img,lastx, bat,lasty , ref_bateau,list_bateaux,list_bateaux_img_link,list_bateaux_img_link_v,v
     
-    if ref_bateau != None :
+    if ref_bateau != None and isEmpty(abscisse,ordonnée,i) == True and ordonnée>=0 and abscisse>=0:
         if (v==True):
             grilles[i].getCanvas().create_image(25+(abscisse-(abscisse%50)),25+(ordonnée-(ordonnée%50)),anchor=NW,image=list_bateaux_img_link_v[ref_bateau])
         else:
@@ -74,7 +76,7 @@ def app(event,i):
                 grilles[i].setGrille2(floor(ordonnée/50),floor(abscisse/50)+o,list_bateaux [ref_bateau].id)
             else :
                 grilles[i].setGrille2(floor(ordonnée/50)+o,floor(abscisse/50),list_bateaux [ref_bateau].id)
-    ref_bateau= None
+        ref_bateau= None
 
         
 
@@ -83,69 +85,18 @@ def app(event,i):
 def pointeur(event,n,action=0):
     global grilles
     global last
-    global orientation
-
+    global orientation , ref_bateau
+    n-=1
     abscisse, ordonnée = event.x -25 , event.y-25
+    if ref_bateau == None:
+        action = 1
     if (action == 0):
-        l=[floor(abscisse/50)*10 + floor(ordonnée/50)]
-        create_bateau(n,l)
+        app(event,n)
         return None
-    elif(action == 1 and grilles[n].getCase(floor(abscisse/50),floor(ordonnée/50))!=4):
-        """
-        if( last[0] != floor(abscisse/50)*10 + floor(ordonnée/50) and last[1] != floor(abscisse/50)*10 + floor(ordonnée/50)):
-            grilles[n].changeColor(floor(abscisse/50)*10+floor(ordonnée/50),"green")
-            grilles[n].changeColor(1+(floor(abscisse/50)*10+floor(ordonnée/50)),"green")
-            grilles[n].changeColor(last[0],"")
-            grilles[n].changeColor(last[1],"")
-            last=[]
-            last.append(floor(abscisse/50)*10+floor(ordonnée/50))
-            last.append(1+(floor(abscisse/50)*10+floor(ordonnée/50)))
-
-        elif(last[0]!=last[0] or last[1]!=last[1]):
-            grilles[n].changeColor(last[0],"green")
-            grilles[n].changeColor(last[1],"green")
-            grilles[n].changeColor(last[0],"")
-            grilles[n].changeColor(last[1],"")
-            last=[]
-            last.append(last[0])
-            last.append(last[1])
-        elif(last[1]==last[0]):
-            print("yes")
-            print(last)
-        """
+    else:
         num = floor(abscisse/50)*10 + floor(ordonnée/50)
-        if (num!=last[0] and orientation == "h"):
-            grilles[n].changeColor(last[0],"")
-            #grilles[n].changeColor(last[1],"")
-            #grilles[n].changeColor(last[2],"")
-            grilles[n].changeColor(num,"green")
-            #grilles[n].changeColor(num +1 ,"green")
-            #grilles[n].changeColor(num +2 ,"green")
-            last=[]
-            last.append(num)
-            #last.append(num+1)
-            #last.append(num+2)
-            if floor(ordonnée/50) <0 or floor(ordonnée/50)>7:
-                grilles[n].changeColor(num,"red")
-               # grilles[n].changeColor(num +1 ,"red")
-               # grilles[n].changeColor(num +2 ,"red")
-
-
-        elif (num!=last[0] and orientation == "v"):
-            grilles[n].changeColor(last[0],"")
-            grilles[n].changeColor(last[1],"")
-            grilles[n].changeColor(last[2],"")
-            grilles[n].changeColor(num,"green")
-            grilles[n].changeColor(num +10 ,"green")
-            grilles[n].changeColor(num +20 ,"green")
-            last=[]
-            last.append(num)
-            last.append(num+10)
-            last.append(num+20)
-            if floor(abscisse/50) <0 or floor(abscisse/50)>7:
-                grilles[n].changeColor(num,"red")
-                grilles[n].changeColor(num +10 ,"red")
-                grilles[n].changeColor(num +20 ,"red")
+        grilles[n].setGrille2(floor(ordonnée/50),floor(abscisse),10)
+        grilles[n].changeColor(num,"red")
 
 def show():
     global root
@@ -173,7 +124,7 @@ def show():
     grilles.append(grille4)
 
 
-    grille.getCanvas().bind("<Button-1>",lambda event : app(event,0))
+    grille.getCanvas().bind("<Button-1>",lambda event : pointeur(event,1))
     #grille2.getCanvas().bind("<Button-1>",lambda event : pointeur(event,1))
     #grille3.getCanvas().bind("<Button-1>",lambda event : pointeur(event,2))
     #grille4.getCanvas().bind("<Button-1>",lambda event : pointeur(event,3))

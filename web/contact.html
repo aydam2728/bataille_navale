@@ -1,24 +1,89 @@
-<section>
-    <!-- ecrire ici le formulaire -->
-    <form method=post >
-
-
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <title>Contact - Bataille Navale</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.11.0/mdb.min.css"
+  rel="stylesheet"
+/>  
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-inverse" style="background-color: #0066cc !important; color:white !important; padding-bottom: 1%;padding-top:1%; font-size: 25px">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>                        
+            </button>
+            <a href="#" class="navbar-brand">Logo</a>
+          </div>
+          <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+              <li><a href="regles.html">Règles</a></li>
+            <li><a href="#">Histoire du jeu</a></li>
+            <li><a href="#">Conception</a></li>
+            <li><a href="#">Manuel d’utilisation</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="python.sh"><span class=" "></span> Jouer</a></li> 
+            </ul>
+          </div>
+        </div>
+      </nav>
+<form>
+  
+    <!-- Email input -->
+    <div class="form-outline mb-4">
+      <input type="email" id="form4Example2" class="form-control" />
+      <label class="form-label" for="form4Example2">Email address</label>
+    </div>
+  <!-- Object input -->
+  <div class="form-outline mb-4">
+    <input type="text" id="form4Example1" class="form-control" />
+    <label class="form-label" for="form4Example1">Name</label>
+  </div>
+    <!-- Message input -->
+    <div class="form-outline mb-4">
+      <textarea class="form-control" id="form4Example3" rows="4"></textarea>
+      <label class="form-label" for="form4Example3">Message</label>
+    </div>
+  
    
-        <div>
-            <label for="mail">Adresse de messagerie :</label>
-            <input type="email" id="mail" name="user_mail" required="required">
-        </div>
-        <div>
-            <label for="objet">Objet du message : </label>
-            <input type="text" id="objet" name="objet">
-        </div>
-        <div>
-            <label for="objet">Saisir le message : </label>
-            <textarea id="message" name="message"></textarea>
-        </div>
-        <div class="button">
-            <button type="submit">Envoyer</button>
-        </div>
-
-    </form>
-</section>
+  
+    <!-- Submit button -->
+    <button type="submit" class="btn btn-primary btn-block mb-4">
+      Send
+    </button>
+  </form>
+</body>
+</html>
+  <style type="text/css">
+      .form-outline:active{
+        border: 1px solid blue;
+      }
+      .form-outline{
+        border: 1px solid grey;
+      }
+      
+form  {
+  width : 50%;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+  </style>
+  <style type="text/css">
+    li a {
+      color:white !important;  
+    }
+  
+  </style>
+  

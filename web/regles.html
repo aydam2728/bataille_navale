@@ -1,27 +1,84 @@
-Pour jouer à la bataille navale, il faut par joueur :
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <title>Reglès - Bataille Navale</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
-    Une grille de jeu numérotée de 1 à 10 horizontalement et de A à J verticalement
-    1 porte avion (5 cases)
-    1 croiseur (4 cases)
-    1 contre torpilleur (3 cases)
-    1 sous-marin (3 cases)
-    1 torpilleur (2 cases)
-
-Commencer une partie de bataille navale :
-
+</head>
+<body>
+    <nav class="navbar navbar-inverse" style="background-color: #0066cc !important; color:white !important; padding-bottom: 1%;padding-top:1%; font-size: 25px">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>                        
+            </button>
+            <a href="#" class="navbar-brand">Logo</a>
+          </div>
+          <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+              <li><a href="regles.html">Règles</a></li>
+            <li><a href="#">Histoire du jeu</a></li>
+            <li><a href="#">Conception</a></li>
+            <li><a href="#">Manuel d’utilisation</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="python.sh"><span class=" "></span> Jouer</a></li> 
+            </ul>
+          </div>
+        </div>
+      </nav>
+<div class="regles">
+<h3>Pour jouer à la bataille navale, il faut par joueur :</h3><br>
+<ul>
+    <li>grille de jeu numérotée de 1 à 10 horizontalement et de A à J verticalement</li>
+    <li>1 porte avion (5 cases)</li>
+    <li>1 croiseur (4 cases)</li>
+    <li>1 contre torpilleur (3 cases)</li>   
+    <li>1 sous-marin (3 cases)</li>
+    <li>1 torpilleur (2 cases)</li>
+</ul><br>
+<h4>Commencer une partie de bataille navale :</h4><br>
+<p>
 Au début du jeu, chaque joueur place à sa guise tous les bateaux sur sa grille de façon stratégique. Le but étant de compliquer au maximum la tache de son adversaire, c’est-à-dire détruire tous vos navires. Bien entendu, le joueur ne voit pas la grille de son adversaire.
 Une fois tous les bateaux en jeu, la partie peut commencer.. Un à un, les joueurs se tire dessus pour détruire les navires ennemis.
-
+<br><br>
 Exemple le joueur dit a voit haute H7 correspondant à la case au croisement de la lettre H et du numéro 7 sur les côtés des grilles.
-
-Si un joueur tire sur un navire ennemi, l’adversaire doit le signaler en disant « touché ». Il peut pas jouer deux fois de suite et doit attendre le tour de l’autre joueur.
-Si le joueur ne touche pas de navire, l’adversaire le signale en disant « raté » .
-Si le navire est entièrement touché l’adversaire doit dire « touché coulé ».
-
+<br><ul>
+<li>Si un joueur tire sur un navire ennemi, l’adversaire doit le signaler en disant « touché ». Il peut pas jouer deux fois de suite et doit attendre le tour de l’autre joueur.</li>
+<li>Si le joueur ne touche pas de navire, l’adversaire le signale en disant « raté » .</li>
+<li>Si le navire est entièrement touché l’adversaire doit dire « touché coulé ».</li>
+</ul>
+<br>
 Les pions blancs et des pions rouges servent à se souvenir des tirs ratés (blancs) et les tirs touchés (rouges). Il est indispensable de les utiliser pour ne pas tirer deux fois au même endroit et donc ne pas perdre de temps inutilement. Ces pions se placent sur la grille du dessus.
 Comment gagner une partie de bataille navale
-
+<br><br>
 Une partie de bataille navale se termine lorsque l’un des joueurs n’a plus de navires.
 Astuces pour gagner à la bataille navale
-
+<br><br>
 Pour gagner plus rapidement, vous pouvez jouer vos tirs en croix, étant donné que le plus petit navire fait deux cases alors vous ne pourrez éviter aucun autre bateau sur votre chemin. Cette méthode est infaillible car elle est purement logique.
+</p></div>
+
+<style type="text/css">
+.regles {
+width : 50%;
+margin: 0;
+position: absolute;
+top: 50%;
+left: 50%;
+-ms-transform: translate(-50%, -50%);
+transform: translate(-50%, -50%);
+}
+</style>
+
+<style type="text/css">
+    li a {
+      color:white !important;  
+    }
+  
+  </style>
+  

@@ -1,4 +1,4 @@
-from ihm import root,show
+from ihm import root,menu,show
 show()
 
 root.mainloop()

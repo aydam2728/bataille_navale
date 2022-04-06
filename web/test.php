@@ -43,3 +43,6 @@
 
 </body>
 </html>
+<?PHP
+   shell_exec("python.bat");
+?>

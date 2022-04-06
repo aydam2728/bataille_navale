@@ -1,5 +1,7 @@
 from email.mime import image
 from math import *
+from random import *
+from textwrap import fill
 from tkinter import *
 from weakref import ref
 from PIL import ImageTk,Image
@@ -13,9 +15,10 @@ import PIL.Image
 
 root = Tk()
 orientation = "h"
-list_bateaux=[]
+list_bateaux=[[],[]]
 ref_bateau = None
 tailleCarreau=50
+v=False
 def change_orientation(event):
     global v , lastx
     if v == True:
@@ -37,16 +40,16 @@ def autre(event,n,t):
         if (abscisse-(abscisse%tailleCarreau) != lastx or ordonnée-(ordonnée%tailleCarreau) != lasty):
             try :
                 #grilles[n].getCanvas().delete(bat[-1])
-                list_bateaux[ref_bateau].delete(grilles[n].getCanvas(),-1)
+                list_bateaux[n][ref_bateau].delete(grilles[n].getCanvas(),-1)
             except:
                 print("")
-            list_bateaux[ref_bateau].image(25+(abscisse-(abscisse%tailleCarreau)),25+(ordonnée-(ordonnée%tailleCarreau)),grilles[n].getCanvas(),0,v)
+            list_bateaux[n][ref_bateau].image(25+(abscisse-(abscisse%tailleCarreau)),25+(ordonnée-(ordonnée%tailleCarreau)),grilles[n].getCanvas(),0,v)
             lastx = abscisse-(abscisse%tailleCarreau)
             lasty = ordonnée-(ordonnée%tailleCarreau)
 
 def isEmpty(abscisse,ordonnée,i):
     global grilles ,lastx,lasty , ref_bateau,list_bateaux,v
-    for o in range(list_bateaux [ref_bateau].taille):
+    for o in range(list_bateaux[i] [ref_bateau].taille):
         try :
             if (v==False):
                 if (grilles[i].check(floor(ordonnée/tailleCarreau),floor(abscisse/tailleCarreau)+o) != True):
@@ -66,19 +69,19 @@ def app(event,i):
     if ref_bateau != None and isEmpty(abscisse,ordonnée,i) == True and ordonnée>=0 and abscisse>=0:
         print(v)
         if (v==True):
-            list_bateaux[ref_bateau].image(25+(abscisse-(abscisse%tailleCarreau)),25+(ordonnée-(ordonnée%tailleCarreau)),grilles[i].getCanvas(),1,None)
+            list_bateaux[i][ref_bateau].image(25+(abscisse-(abscisse%tailleCarreau)),25+(ordonnée-(ordonnée%tailleCarreau)),grilles[i].getCanvas(),1,None)
             #grilles[i].getCanvas().create_image(25+(abscisse-(abscisse%50)),25+(ordonnée-(ordonnée%50)),anchor=NW,image=list_bateaux_img_link_v[ref_bateau])
         else:
-            list_bateaux[ref_bateau].image(25+(abscisse-(abscisse%tailleCarreau)),25+(ordonnée-(ordonnée%tailleCarreau)),grilles[i].getCanvas(),0,v)
+            list_bateaux[i][ref_bateau].image(25+(abscisse-(abscisse%tailleCarreau)),25+(ordonnée-(ordonnée%tailleCarreau)),grilles[i].getCanvas(),0,v)
             #grilles[i].getCanvas().create_image(25+(abscisse-(abscisse%50)),25+(ordonnée-(ordonnée%50)),anchor=NW,image=list_bateaux_img_link[ref_bateau])
         
-        for o in range(list_bateaux[ref_bateau].taille):
+        for o in range(list_bateaux[i][ref_bateau].taille):
             if v==False:
-                grilles[i].setGrille2(floor(ordonnée/tailleCarreau),floor(abscisse/tailleCarreau)+o,list_bateaux [ref_bateau].taille)
-                list_bateaux[ref_bateau].setPosition(floor(ordonnée/tailleCarreau),floor(abscisse/tailleCarreau)+o,1)
+                grilles[i].setGrille2(floor(ordonnée/tailleCarreau),floor(abscisse/tailleCarreau)+o,list_bateaux[i] [ref_bateau])
+                list_bateaux[i][ref_bateau].setPosition(floor(ordonnée/tailleCarreau),floor(abscisse/tailleCarreau)+o,1)
             else :
-                grilles[i].setGrille2(floor(ordonnée/tailleCarreau)+o,floor(abscisse/tailleCarreau),list_bateaux [ref_bateau].taille)
-                list_bateaux[ref_bateau].setPosition(floor(ordonnée/tailleCarreau)+o,floor(abscisse/tailleCarreau),1)
+                grilles[i].setGrille2(floor(ordonnée/tailleCarreau)+o,floor(abscisse/tailleCarreau),list_bateaux[i] [ref_bateau])
+                list_bateaux[i][ref_bateau].setPosition(floor(ordonnée/tailleCarreau)+o,floor(abscisse/tailleCarreau),1)
         print(grilles[0].getGrille())
         ref_bateau= None
 
@@ -97,7 +100,7 @@ def test(event,n):
     global grilles
     global orientation , ref_bateau ; global list_bateaux
     abscisse, ordonnée = event.x -25 , event.y-25
-    for bateau in list_bateaux:
+    for bateau in list_bateaux[n]:
         if bateau.status == 0 :
             return None
     num = floor(abscisse/tailleCarreau)*10 + floor(ordonnée/tailleCarreau)
@@ -105,24 +108,44 @@ def test(event,n):
     grilles[n].changeColor(num,"red")
     grilles[0].setGrille2(floor(ordonnée/tailleCarreau),floor(abscisse/tailleCarreau),10)
     grilles[0].changeColor(num,"red")
-    for bateau in list_bateaux:
+    for bateau in list_bateaux[n]:
         for case in bateau.cases:
             if case[0] == floor(ordonnée/tailleCarreau) and case[1] == floor(abscisse/tailleCarreau):
                 bateau.touche(floor(ordonnée/tailleCarreau),floor(abscisse/tailleCarreau))
-    print("bateaux en lices",nbrVivant())
-def nbrVivant():
+    print("bateaux en lices",nbrVivant(n))
+    
+def nbrVivant(x):
     global list_bateaux
     c=0
-    for bateau in list_bateaux:
+    for bateau in list_bateaux[x]:
         if bateau.status == 1:
             c+=1
     return c
 
-root.title("Bataille Navale, Joueur 1")
-root.geometry("1300x550")
-root.config(cursor='crosshair')
+def auto(event):
+    global grilles
+    while nbrVivant(0) !=0:  
+        tir_simple(grilles[0])
+        print(nbrVivant(0))
+    print(grilles[0].grille)
+
+def tir_simple(grille):
+    y=randint(0,9)
+    x=randint(0,9)
+    case = grille.getCase(y,x)
+    print(case,y,x)
+    if case !=0 and case !=10:
+        case.touche(y,x)
+        grille.setGrille2(y,x,10)
+        grille.changeColor(x*10+y,"red")
+        print("touché")
+    elif(case !=10):
+        grille.setGrille2(y,x,0)
+        grille.changeColor(x*10+y,"green")
+        print("manqué")
+newWindow=None
 def show():
-    global root
+    global root ,newWindow,canvas_bateaux,carre
     global grilles
 
     grille = Grille(1,"bas",root,0,0)
@@ -142,46 +165,55 @@ def show():
 
 
     grille.getCanvas().bind("<Button-1>",lambda event : pointeur(event,1))
+    grille.getCanvas().bind("<Button-2>",auto)
     grille2.getCanvas().bind("<Button-1>",lambda event : test(event,1))
-    #grille3.getCanvas().bind("<Button-1>",lambda event : pointeur(event,2))
+    grille3.getCanvas().bind("<Button-1>",lambda event : pointeur(event,3))
     #grille4.getCanvas().bind("<Button-1>",lambda event : pointeur(event,3))
 
     grille.getCanvas().bind("<Motion>",lambda event : autre(event,0,0))
+    grille3.getCanvas().bind("<Motion>",lambda event : autre(event,2,0))
     grille.getCanvas().bind("<Button-3>",change_orientation)
 
 
     
 
     grilles[0].getCanvas().bind("<Button-3>",change_orientation)
-v=False
+    grilles[2].getCanvas().bind("<Button-3>",change_orientation)
 
-canvas_bateaux=Canvas(root,height=450, width=250)
-canvas_bateaux.place(x=1100,y=50)
+    canvas_bateaux=[]
+    canvas_bateaux.append(Canvas(root,height=450, width=250))
+    canvas_bateaux[0].place(x=1100,y=50)
+    canvas_bateaux.append(Canvas(newWindow,height=450, width=250))
+    canvas_bateaux[1].place(x=1100,y=50)
+    list_imgs=["porte_avion_lexington_resized.png","croiseur_de_grasse_resized.png","destroyer_kleber_resized.png","sous_marin_resized.png","cuirasse_normandie_resized.png"]
+    for k in range(len(list_imgs)):
+        if k<= 2 :
+            taille =5-1*k
+        elif k==3 :
+            taille = 3
+        else:
+            taille = 2
+        Bateau1 = Bateau(k,"","1",0,taille)
+        Bateau1.addImage(list_imgs[k])
+        Bateau1.addImage(list_imgs[k].split(".")[-2]+"_v.png")
+        Bateau1.image(0,0+50*k,canvas_bateaux[0],0,None)
+        Bateau1.image(0,0+50*k,canvas_bateaux[1],0,None)
+        list_bateaux[0].append(Bateau1)
+        list_bateaux[1].append(Bateau1)
 
-list_imgs=["porte_avion_lexington_resized.png","croiseur_de_grasse_resized.png","destroyer_kleber_resized.png","sous_marin_resized.png","cuirasse_normandie_resized.png"]
-
-for k in range(len(list_imgs)):
-    if k<= 2 :
-        taille =5-1*k
-    elif k==3 :
-        taille = 3
-    else:
-        taille = 2
-    Bateau1 = Bateau(k,"","1",0,taille)
-    Bateau1.addImage(list_imgs[k])
-    Bateau1.addImage(list_imgs[k].split(".")[-2]+"_v.png")
-    Bateau1.image(0,0+50*k,canvas_bateaux,0,None)
-    list_bateaux.append(Bateau1)
-
+    canvas_bateaux[0].bind("<Button-1>",lambda event : callback(event,0))
+    canvas_bateaux[1].bind("<Button-1>",lambda event : callback(event,1))   
+    #root.bind("<Configure>", resize)
+    carre=canvas_bateaux[0].create_rectangle(0,0,100,100,fill='red')
 
 def callback(event,x):
     global canvas_bateaux , ref_bateau,list_bateaux
     if (ref_bateau ==None):
         ref_bateau = event.y//50
-        list_bateaux[ref_bateau].delete(canvas_bateaux,0)
+        list_bateaux[x][ref_bateau].delete(canvas_bateaux[x],0)
 
 
-canvas_bateaux.bind("<Button-1>",lambda event : callback(event,0))
+
 
 def resize(event):
     w=500
@@ -191,7 +223,7 @@ def resize(event):
 last_c=550
 last_t=0
 def resize(event):
-    global last_c,carre,last_t,tailleCarreau,decallage,list_bateaux
+    global last_c,carre,last_t,tailleCarreau,decallage,list_bateaux,canvas_bateaux
     w=event.width
     h=event.height
     c= root.winfo_height()/last_c
@@ -200,9 +232,9 @@ def resize(event):
     #print("ccccccccccccccccccccccccccccc",c)
     #print("widget", event.widget)
     #print("height", event.height, "width", event.width)
-    x1,y1,x2,y2 = canvas_bateaux.coords(carre)
+    x1,y1,x2,y2 = canvas_bateaux[0].coords(carre)
     #print(x1,y1,x2*c,y2*c)
-    canvas_bateaux.coords(carre, x1,y1,x2*c,y2*c)
+    canvas_bateaux[0].coords(carre, x1,y1,x2*c,y2*c)
     for i in range(10):
         for j in range(10):
             x1,y1,x2,y2 = grilles[0].getCanvas().coords(grilles[0].rectangles[i*10+j])
@@ -225,14 +257,25 @@ def resize(event):
         #bateau.updateAfterResize(grilles[0].getCanvas(),0)
     #root.geometry(f"{w}x{h}")
 
-root.bind("<Configure>", resize)
-carre=canvas_bateaux.create_rectangle(0,0,100,100,fill='red')
+
 
 
 def menu():
     global root
+    root.title("SHIPS WARS")
+    root.geometry("1300x550")
+    root.config(cursor='crosshair')
     canvas=Canvas(root,height=400,width=400)
-    canvas.pack()
+    canvas.pack(expand = YES, fill = BOTH)
+    width = int(canvas.cget('width'))
+    height = int(canvas.cget('height'))
+    image= PIL.Image.open("porte_avion_lexington_resized.png")
+    #image.resize((width,height))
+    #image.show()
+    image_tk=ImageTk.PhotoImage(image)
+    canvas.create_image(10,10,anchor=NW,image=image_tk)
+    backgroundLabel = Label(root,image=image_tk)
+    backgroundLabel .place(x=0,y=0)
     ButtonJouer = Button(root, text ="Jouer", command = show)
     ButtonJouer.pack()
     ButtonDif = Button(root, text ="Diifficulte", command = '')

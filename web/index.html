@@ -26,7 +26,7 @@
       <li><a href="contact.html">Contact</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="python.sh"><span class=" "></span> Jouer</a></li> 
+        <li><a href="python.bat" download><span class=" "></span> Jouer</a></li> 
       </ul>
     </div>
   </div>
@@ -40,3 +40,20 @@
   }
 
 </style>
+
+<input type="button" id='script' name="scriptbutton" value=" Run Script " onclick="goPython()">
+
+<script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+<script>
+    function goPython(){
+        $.ajax({
+          url: "python.bat",
+         context: document.body
+        }).done(function() {
+         alert('finished python script');;
+        });
+    }
+</script>
+
+  

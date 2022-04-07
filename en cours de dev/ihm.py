@@ -1,7 +1,9 @@
 from email.mime import image
+from glob import escape
 from math import *
 from random import *
 from textwrap import fill
+import time
 from tkinter import *
 from weakref import ref
 from PIL import ImageTk,Image
@@ -124,28 +126,99 @@ def nbrVivant(x):
 
 def auto(event):
     global grilles
-    while nbrVivant(0) !=0:  
-        tir_simple(grilles[0])
+    c=0
+    while nbrVivant(0) !=0:
+        c+=1  
+        tir_difficile(grilles[0])
         print(nbrVivant(0))
-    print(grilles[0].grille)
+        print(c,"compteur")
+    #print(grilles[0].grille)
+    for r in grilles[0].grille:
+        for c in r:
+            print(c,end = " ")
+        print("")
+    
 
-def tir_simple(grille):
+def tir_super_simple(grille):
     y=randint(0,9)
     x=randint(0,9)
     case = grille.getCase(y,x)
     print(case,y,x)
-    if case !=0 and case !=10:
-        case.touche(y,x)
-        grille.setGrille2(y,x,10)
-        grille.changeColor(x*10+y,"red")
-        print("touché")
-    elif(case !=10):
-        grille.setGrille2(y,x,0)
+    if case ==0:
         grille.changeColor(x*10+y,"green")
         print("manqué")
+        return (y,x,False)
+    else: 
+        case.touche(y,x)
+        grille.changeColor(x*10+y,"red")
+        print("touché")
+        return (y,x,True)
+        
+
+def tir_simple(grille,y=None,x=None):
+    if x==None and y==None : 
+        y=randint(0,9)
+        x=randint(0,9)
+    case = grille.getCase(y,x)
+    if case !=0 and case !=2 and case !=1:
+        case.touche(y,x)
+        grille.setGrille2(y,x,1)
+        grille.changeColor(x*10+y,"red")
+        print("touché")
+        return (y,x,case,True)
+    elif(case !=2 and case !=1):
+        grille.setGrille2(y,x,2)
+        grille.changeColor(x*10+y,"green")
+        print("manqué")
+        return (y,x,False)
+    return tir_simple(grille)
+list_tirs=[]
+def tir_moyen(grille):
+    if len(list_tirs)>0 and list_tirs[-1][0][-1]==True or (len(list_tirs)>0 and list_tirs[-1][0][-1]==False and check_list()==False):
+        print(generate_random())
+        y,x = generate_random()
+        print(y,x,"1",list_tirs[-1][0][0],"normalement y du tir precedent")
+        exec=tir_simple(grille,list_tirs[-1][0][0]+y,list_tirs[-1][0][1]+x)
+        list_tirs.append([exec,y,x])
+    elif len(list_tirs)>0 and list_tirs[-1][0][-1]==False:
+        y,x = generate_random(list_tirs[-1][-2],list_tirs[-1][-1])
+        print(y,x,"2")
+        exec=tir_simple(grille,list_tirs[-2][0][0]+y,list_tirs[-2][0][1]+x)
+        list_tirs.append([exec,y,x])
+    elif(len(list_tirs)==0):
+        list_tirs.append([tir_simple(grille),0,0])
+    print(list_tirs)
+    print("rien",list_tirs[-1][0][-1])
+    time.sleep(1)
+
+def tir_difficile(grille):
+    global list_tirs,list_bateaux
+    if len(list_tirs)==0:
+        list_tirs.append(tir_simple(grille))
+    elif (list_tirs[-1][-1] == True and list_tirs[-1][-2].getCaseAlive() != None):
+        y,x = list_tirs[-1][-2].getCaseAlive()
+        print("ici",y,x,list_tirs[-1][-2].taille)
+        list_tirs.append(tir_simple(grille,y,x))
+    else:
+        list_tirs.append(tir_simple(grille))
+
+
+def generate_random(e_y=-2,e_x=-2):
+    y=randint(-1,1)
+    x=randint(-1,1)
+    if y+x == 0 or(x+y==e_y+e_x and (y==e_y or x==e_x)):
+        generate_random(y,x)
+    else:
+        return (y,x)
+def check_list():
+    global list_tirs
+    for tir in list_tirs:
+        if tir[0] == True:
+            return True
+    return False
 newWindow=None
 def show():
-    global root ,newWindow,canvas_bateaux,carre
+    global root ,newWindow,canvas_bateaux,carre,grilles
     global grilles
 
     grille = Grille(1,"bas",root,0,0)
@@ -205,6 +278,16 @@ def show():
     canvas_bateaux[1].bind("<Button-1>",lambda event : callback(event,1))   
     #root.bind("<Configure>", resize)
     carre=canvas_bateaux[0].create_rectangle(0,0,100,100,fill='red')
+
+    place(5)
+    place(4)
+    place(3)
+    place(3)
+    place(2)
+    for r in grilles[2].grille:
+        print("")
+        for c in r:
+            print(c,end = " ")
 
 def callback(event,x):
     global canvas_bateaux , ref_bateau,list_bateaux
@@ -280,4 +363,27 @@ def menu():
     ButtonJouer.pack()
     ButtonDif = Button(root, text ="Diifficulte", command = '')
     ButtonDif.pack()
+
+def place(t):
+    global grilles
+    x=randint(0,9)
+    y=randint(0,9)
+    o=randint(0,1)
+    if 0<x+t<10 and 0<y+t<10 and check(y,x,t,o):
+        if(o==0):
+            for k in range(t):
+                grilles[2].grille[y][x+k]=t
+        else:
+            for k in range(t):
+                grilles[2].grille[y+k][x]=t
+    else:
+        return place(t)
+def check(y,x,t,o):
+    global grilles
+    for k in range(t):
+        if grilles[2].grille[y][x+k] != 0 and o==0:
+            return False
+        if grilles[2].grille[y+k][x] != 0 and o==1:
+            return False
+    return True
 

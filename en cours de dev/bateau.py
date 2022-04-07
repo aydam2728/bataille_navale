@@ -36,10 +36,10 @@ class Bateau():
         self.delete(canvas,i)
         self.image(x,y,canvas,i)
     
-    def touche(self,x,y):
+    def touche(self,y,x):
         c=0
         for case in self.cases:
-            if case[0] == x and case[1]==y:
+            if case[0] == y and case[1]==x:
                 self.cases[c][-1]=2
                 if self.enVie()==False :
                    self.status = 2 
@@ -51,7 +51,13 @@ class Bateau():
                 return True
         return False
             
-    def setPosition(self,x,y,status):
-        self.cases.append([x,y,status])
+    def setPosition(self,y,x,status):
+        self.cases.append([y,x,status])
         if len(self.cases) == self.taille:
             self.status = 1
+
+    def getCaseAlive(self):
+        for case in self.cases:
+            if case[-1] == 1:
+                return case[0],case[1]
+        return None

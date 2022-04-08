@@ -13,21 +13,21 @@ class Bateau():
         # 1 : en jeu
         # 2 : détruit
         self.taille=taille
-        self.images=[]
+        self.image=[]
         self.images_created=[]
-    def image(self,x,y,canvas,num,v):
+    def createImage(self,x,y,canvas,v):
         if (v==True):
-            self.image_tk=ImageTk.PhotoImage(self.images[num].rotate(-90,expand=1))
+            self.image_tk=ImageTk.PhotoImage(self.image.rotate(-90,expand=1))
         else:
-            self.image_tk=ImageTk.PhotoImage(self.images[num])
+            self.image_tk=ImageTk.PhotoImage(self.image)
         self.images_created.append(canvas.create_image(x, y,anchor=NW,image=self.image_tk))
     def addImage(self,link):
-        self.images.append(Image.open(link))
+        self.image=Image.open(link)
     def delete(self,canvas,i):
         canvas.delete(self.images_created[i])
         self.images_created=[]
     def updateImage(self,canvas,i):
-        image_tk=ImageTk.PhotoImage(self.images[0].rotate(90))
+        image_tk=ImageTk.PhotoImage(self.image.rotate(90))
         canvas.itemconfig(self.images_created[-1],image=image_tk)
     
     def updateAfterResize(self,canvas,i):
@@ -51,8 +51,12 @@ class Bateau():
                 return True
         return False
             
-    def setPosition(self,y,x,status):
-        self.cases.append([y,x,status])
+    def setPosition(self,y,x,v,status):
+        for k in range(self.taille):
+            if v== False:
+                self.cases.append([y,x+k,status])
+            else:
+                self.cases.append([y+k,x,status])
         if len(self.cases) == self.taille:
             self.status = 1
 

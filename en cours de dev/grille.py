@@ -43,7 +43,6 @@ class Grille():
 
     def setGrille(self,i,j,x):
         self.grille[i][j]=x
-        print(self.grille)
         self.changeColor(i*10+j,"green")
 
     def setGrille2(self,i,j,x):

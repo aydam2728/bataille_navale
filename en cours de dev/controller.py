@@ -26,7 +26,6 @@ canvas.pack(expand=True,fill=BOTH)
 width = int(canvas.cget('width'))
 height = int(canvas.cget('height'))
 image= PIL.Image.open("wallpaper.jpg")
-print(width,height)
 image=image.resize((width,height), PIL.Image.ANTIALIAS)
 logo= PIL.Image.open("logo.png")
 logo = logo.resize((300,300), PIL.Image.ANTIALIAS)
@@ -50,7 +49,6 @@ arret=randint(5,15)
 def update():
     global canvas,points,point,c,arret
     c=c+1
-    print(c)
     if c==arret:
         root.unbind("<Configure>")
         canvas.destroy()
@@ -73,24 +71,19 @@ def resize(event):
     global last_h,last_t,logo,root,logo_image,wallpaper_image,image,image_tk,image_tk2,points,texte,last_h,last_tc,last_c,start
     h= root.winfo_height()/last_h
     c=root.winfo_width()/last_c
-    print("exe",h,c,last_h,last_c,last_t,last_tc)
     if timeit.default_timer()-start <0.1:
        return None
-    print("here")
     width, height = logo.size
-    #print(c,int(width*c),int(height*c))
     logo=logo.resize((int(width*c),int(height*h)))
     width, height = image.size
     image=image.resize((int(width*c),int(height*h)),PIL.Image.LANCZOS )
     x,y = canvas.coords(logo_image)
-    #print(canvas.coords(logo_image),x*c,y*c,'cordsssssssssss')
     canvas.coords(logo_image,x*c,y*h)
 
     x,y = canvas.coords(points)
     canvas.coords(points,x*c,y*h)
 
     x,y = canvas.coords(texte)
-    #print(x*c,y*c)
     canvas.coords(texte,x*c,y*h)
 
     last_t=h

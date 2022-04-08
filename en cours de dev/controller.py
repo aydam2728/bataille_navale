@@ -15,7 +15,7 @@ import PIL.Image
 from PIL import Image, ImageTk
 import PIL.Image
 import timeit
-#menu()
+
 
 root.title("SHIPS FIGHT")
 root.iconbitmap('logo_black.ico')
@@ -29,21 +29,20 @@ image= PIL.Image.open("wallpaper.jpg")
 image=image.resize((width,height), PIL.Image.ANTIALIAS)
 logo= PIL.Image.open("logo.png")
 logo = logo.resize((300,300), PIL.Image.ANTIALIAS)
-#image.show()
+
 image_tk=ImageTk.PhotoImage(image)
 wallpaper_image=canvas.create_image(0,0,anchor=NW,image=image_tk)
 image_tk2=ImageTk.PhotoImage(logo)
 logo_image=canvas.create_image(1100,75,anchor=NW,image=image_tk2)
-#backgroundLabel = Label(root,image=image_tk)
-#backgroundLabel .place(x=0,y=0)
+
 myfont = font.Font(family="Arial", size=14, weight="bold")
 texte=canvas.create_text(50,750,text="A DAMIEN ORIGINAL",fill="white",anchor=NW,font=myfont)
 points=canvas.create_text(250,750,text=".",fill="white",anchor=NW,font=myfont)
 ButtonJouer = Button(root, text ="Jouer", command = show)
-#ButtonJouer.pack()
+
 ButtonDif = Button(root, text ="Diifficulte", command = '')
 point=["."]
-#ButtonDif.pack()
+
 c=0
 arret=randint(5,15)
 def update():
@@ -60,7 +59,7 @@ def update():
         point.append(".")
     
     canvas.itemconfigure(points, text=point)
-    root.after(0, update) #mettre 500
+    root.after(500, update) 
 
 last_h=800
 last_c=1422

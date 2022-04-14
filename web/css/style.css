@@ -1,0 +1,47 @@
+.col{
+    line-height: 2;
+}
+p, h2,h4{
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+a{
+    color: darkgray;
+    text-decoration: none;
+}
+#accueil img{
+    width: 100%;
+    height: 100%;
+    -webkit-filter: blur(3px);
+    filter: blur(3px);
+    -webkit-transition: .3s ease-in-out;
+    transition: .3s ease-in-out;
+    transition :transform;
+    transition-duration: 0.5s;
+}
+#accueil:hover img {
+    -webkit-filter: blur(0);
+    filter: blur(0);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    
+}
+.linkbutton {
+    position: absolute;
+    top: 90%;
+    left: 45%;
+    font-size: 20px;
+    display: inline-block;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    color: #ffffff;
+    border: 5px solid #FFFFFF;
+    border-radius: 20px;    
+    outline: none;
+    z-index: 10;
+  }
+  .linkbutton:hover {
+    color: #aca7a7;
+    border: 5px solid #aca7a7;
+  }

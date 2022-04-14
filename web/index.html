@@ -1,59 +1,213 @@
-<!DOCTYPE html>
 <html lang="fr">
 <head>
-  <title>Accueil - Bataille Navale</title>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<!-- Font Awesome -->
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  rel="stylesheet"
+/>
+<!-- Google Fonts -->
+<link
+  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+  rel="stylesheet"
+/>
+<!-- MDB -->
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.11.0/mdb.min.css"
+  rel="stylesheet"
+/>
+
+    <link
+            href="css/style.css"
+            rel="stylesheet"
+    />
+    <title>Accueil - Bataille Navale</title>
 </head>
-<body>
-<nav class="navbar navbar-inverse" style="background-color: #0066cc !important; color:white !important; padding-bottom: 1%;padding-top:1%; font-size: 25px">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
-      </button>
-      <a href="#" class="navbar-brand">Logo</a>
+
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a href="index.php" class="navbar-brand">
+                <img src="images/logo_black.png" height="42" alt="Logo">
+            </a>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav">
+                    <a href="regles.html" class="nav-link px-2 link-dark">Règles</a>
+                    <a href="histoire.html" class="nav-link px-2 link-dark">Histoire du jeu</a>
+                    <a href="conception.html" class="nav-link px-2 link-dark">Conception</a>
+                    <a href="manuel_utilisation.html" class="nav-link px-2 link-dark">Manuel d’utilisation</a>
+                    <a href="contact.html" class="nav-link px-2 link-dark">Contact</a>
+                </div>
+                <div class="navbar-nav ms-auto">
+                    <a href="" class="nav-link px-2 link-secondary" style="color: blue!important">Jouer</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid" id="accueil"style="background:rgb(0, 0, 0);height:100%;whith:100%">
+      <img src="images/wallpaper.jpg">
+      <a class="linkbutton"href="#second">En savoir plus</a>
     </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav">
-        <li><a href="regles.html">Règles</a></li>
-      <li><a href="#">Histoire du jeu</a></li>
-      <li><a href="#">Conception</a></li>
-      <li><a href="#">Manuel d’utilisation</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="python.bat" download><span class=" "></span> Jouer</a></li> 
-      </ul>
+    <div class="container-fluid" id="second" style="height:100%;whith:100%">
+      Le nouveau jeu de Bataille Navale
     </div>
-  </div>
-</nav>
-</body>
+    
+  <!-- Remove the container if you want to extend the Footer to full width. -->
+<div class="container my-5">
+  <!-- Footer -->
+  <footer
+          class="text-center text-lg-start text-white"
+          style="background-color: #45526e"
+          >
+    <!-- Grid container -->
+    <div class="container p-4 pb-0">
+      <!-- Section: Links -->
+      <section class="">
+        <!--Grid row-->
+        <div class="row">
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+            <h6 class="text-uppercase mb-4 font-weight-bold">
+              Ships Fight
+            </h6>
+            <p>
+             Le nouveau jeu de battaile navale
+              <p>
+              <a href="contact.html" class="text-white">Nous contacter</a>
+            </p>
+            </p>
+          </div>
+          <!-- Grid column -->
+
+          <hr class="w-100 clearfix d-md-none" />
+
+          <!-- Grid column -->
+          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+            <h6 class="text-uppercase mb-4 font-weight-bold">Mentions Légales</h6>
+            <p>
+              <a class="text-white">Réservation d'ordonnance</a>
+            </p>
+            <p>
+              <a class="text-white">Téléconsultation</a>
+            </p>
+            <p>
+              <a class="text-white">Vaccination COVID</a>
+            </p>
+            <p>
+              <a class="text-white">Dépistage COVID</a>
+            </p>
+           
+          </div>
+          <!-- Grid column -->
+
+          <hr class="w-100 clearfix d-md-none" />
+
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+            <h6 class="text-uppercase mb-4 font-weight-bold">
+              Newsleter
+            </h6>
+            <p>
+              <a class="text-white">Inscrivez-vous !</a>
+            </p>
+            <p>
+              <a class="text-white">
+              <form method="post" action="">
+                  <div class="form-group" style="margin-bottom: 6%">
+                      <input type="email" name="email" class="form-control" id="Email" aria-describedby="emailHelp" placeholder="Enter email">
+                  </div>
+                  <button type="submit" name="button" class="btn btn-primary">Valider</button>
+              </form>
+              </a>
+            </p>
+          </div>
+
+          <!-- Grid column -->
+          <hr class="w-100 clearfix d-md-none" />
+
+          <!-- Grid column -->
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+            <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
+            <p><i class="fas fa-home mr-3"></i> Ships Fight, 75000 Paris</p>
+            <p><i class="fas fa-envelope mr-3"></i>  contact@shipsfight.fr</p>
+            <p><i class="fas fa-phone mr-3"></i>  05 63 52 75 12</p>
+          </div>
+          <!-- Grid column -->
+        </div>
+        <!--Grid row-->
+      </section>
+      <!-- Section: Links -->
+
+      <hr class="my-3">
+
+      <!-- Section: Copyright -->
+      <section class="p-3 pt-0">
+        <div class="row d-flex align-items-center">
+          <!-- Grid column -->
+          <div class="col-md-7 col-lg-8 text-center text-md-start">
+            <!-- Copyright -->
+            <div class="p-3">
+              © 2022 Copyright:
+              <a class="text-white" href=""
+                 >Ships Fight</a
+                >
+            </div>
+            <!-- Copyright -->
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-5 col-lg-4 ml-lg-0 text-center text-md-end">
+            <!-- Facebook -->
+            <a
+               class="btn btn-outline-light btn-floating m-1"
+               class="text-white"
+               role="button"
+               target="_blank"
+               ><i class="fab fa-facebook-f"></i
+              ></a>
+
+            <!-- Twitter -->
+            <a
+               class="btn btn-outline-light btn-floating m-1"
+               class="text-white"
+               role="button"
+               target="_blank"
+               ><i class="fab fa-twitter"></i
+              ></a>
+
+            <!-- Google -->
+            <a
+               class="btn btn-outline-light btn-floating m-1"
+               class="text-white"
+               role="button"
+               target="_blank"
+               href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+               ><i class="fab fa-google"></i
+              ></a>
+
+            <!-- Instagram -->
+            <a
+               class="btn btn-outline-light btn-floating m-1"
+               class="text-white"
+               role="button"
+               target="_blank"
+               ><i class="fab fa-instagram"></i
+              ></a>
+          </div>
+          <!-- Grid column -->
+        </div>
+      </section>
+      <!-- Section: Copyright -->
+    </div>
+    <!-- Grid container -->
+  </footer>
+  <!-- Footer -->
+</div>
+<!-- End of .container -->
 </html>
-
-<style type="text/css">
-  li a {
-    color:white !important;  
-  }
-
-</style>
-
-<input type="button" id='script' name="scriptbutton" value=" Run Script " onclick="goPython()">
-
-<script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-
-<script>
-    function goPython(){
-        $.ajax({
-          url: "python.bat",
-         context: document.body
-        }).done(function() {
-         alert('finished python script');;
-        });
-    }
-</script>
-
-  
